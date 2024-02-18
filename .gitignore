@@ -37,3 +37,4 @@ out/
 
 ### Custom ###
 *.properties
+*.yml

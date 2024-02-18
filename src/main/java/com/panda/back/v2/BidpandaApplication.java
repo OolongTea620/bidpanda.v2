@@ -1,4 +1,4 @@
-package com.bidpanda.back.v2;
+package com.panda.back.v2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

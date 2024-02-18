@@ -1,4 +1,4 @@
-package com.bidpanda.back.v2.common.exception.user;
+package com.panda.back.v2.common.exception.user;
 
 public class UnAuthorizedUserException extends RuntimeException {
 

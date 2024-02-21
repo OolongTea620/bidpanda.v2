@@ -28,16 +28,20 @@ public class Verification {
         .build();
   }
 
-  public void setWaiting() {
+  public void onWaiting() {
     if (!status.equals(VerificationStatus.GENERATE)) {
       throw new VerifyUserException();
     }
     this.status = VerificationStatus.WAITING;
   }
-  //
-  public Verification verifyEmail() {
-    return null;
+  public Verification verify(String verifyCode) {
+    if (!status.equals(VerificationStatus.WAITING)) {
+      throw new VerifyUserException();
+    } // 메일에 보낸 상태가 아닌 경우
+    if (!verificationCode.equals(verifyCode)) {
+      throw new VerifyUserException();
+    } // 인증코드 미일치
+    this.status = VerificationStatus.VERIFIED;
+    return this;
   }
-
-
 }

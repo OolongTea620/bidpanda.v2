@@ -1,6 +1,6 @@
 package com.panda.back.v2.user.adapter.in.web.dto;
 
-import com.panda.back.v2.user.applcation.port.in.dto.SendVerificationCodeDto;
+import com.panda.back.v2.user.application.port.in.dto.SendVerificationCodeDto;
 import lombok.Builder;
 import lombok.Getter;
 

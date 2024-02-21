@@ -1,6 +1,6 @@
 package com.panda.back.v2.user.adapter.in.web.dto;
 
-import com.panda.back.v2.user.applcation.port.in.dto.CreateUserDto;
+import com.panda.back.v2.user.application.port.in.dto.CreateUserDto;
 import lombok.Getter;
 import lombok.Setter;
 

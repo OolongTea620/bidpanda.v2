@@ -1,6 +1,6 @@
 package com.panda.back.v2.user.adapter.in.web.dto;
 
-import com.panda.back.v2.user.applcation.port.in.dto.CreateUserDto;
+import com.panda.back.v2.user.application.port.in.dto.CreateUserDto;
 import com.panda.back.v2.user.domain.User;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -8,7 +8,6 @@ import java.time.ZoneId;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.CloseableThreadContext.Instance;
 
 @Getter
 @Setter

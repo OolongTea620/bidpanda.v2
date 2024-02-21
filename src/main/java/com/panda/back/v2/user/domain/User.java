@@ -1,8 +1,8 @@
 package com.panda.back.v2.user.domain;
 
 import com.panda.back.v2.common.exception.user.UnAuthorizedUserException;
-import com.panda.back.v2.user.applcation.port.in.dto.CreateUserDto;
-import com.panda.back.v2.user.applcation.port.in.dto.UpdateUserDto;
+import com.panda.back.v2.user.application.port.in.dto.CreateUserDto;
+import com.panda.back.v2.user.application.port.in.dto.UpdateUserDto;
 import lombok.Builder;
 import lombok.Getter;
 

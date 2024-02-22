@@ -1,4 +1,4 @@
-package com.panda.back.v2.user.domain;
+package com.panda.back.user.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;

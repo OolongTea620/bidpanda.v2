@@ -1,4 +1,4 @@
-package com.panda.back.v2.mock;
+package com.panda.back.mock;
 
 import com.panda.back.v2.common.infrastructure.RandomHolder;
 

@@ -3,9 +3,9 @@ package com.panda.back.user.domain;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-import com.panda.back.v2.common.exception.user.UnAuthorizedUserException;
-import com.panda.back.v2.user.application.port.in.dto.CreateUserDto;
-import com.panda.back.v2.user.application.port.in.dto.UpdateUserDto;
+import com.panda.back.common.exception.user.UnAuthorizedUserException;
+import com.panda.back.user.application.port.in.dto.CreateUserDto;
+import com.panda.back.user.application.port.in.dto.UpdateUserDto;
 import org.junit.jupiter.api.Test;
 
 class UserTest {
@@ -27,7 +27,10 @@ class UserTest {
     assertThat(user.getEmail()).isEqualTo("test1234@test.com");
     assertThat(user.getPassword()).isEqualTo("this is test pass");
     assertThat(user.getNickname()).isEqualTo("test_nick");
+    assertThat(user.getProfileImgUrl()).isNull();
     assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    assertThat(user.getRole()).isEqualTo(UserRole.NORMAL);
+    assertThat(user.getCreatedAt()).isNull();
   }
 
   @Test
@@ -38,13 +41,14 @@ class UserTest {
         .email("test1234@test.com")
         .password("this is test pass")
         .nickname("test_nick")
-        .imageUrl("this_is_image_url")
+        .profileImgUrl("this_is_image_url")
         .status(UserStatus.ACTIVE)
-        .createdAt(123456789)
+        .role(UserRole.NORMAL)
+        .createdAt(123456789L)
         .build();
 
     UpdateUserDto updateUserDto = UpdateUserDto.builder()
-        .imageUrl("changed_url")
+        .profileImgUrl("changed_url")
         .nickname("changed_nick")
         .build();
 
@@ -56,10 +60,10 @@ class UserTest {
     assertThat(user.getEmail()).isEqualTo("test1234@test.com");
     assertThat(user.getPassword()).isEqualTo("this is test pass");
     assertThat(user.getNickname()).isEqualTo("changed_nick");
-    assertThat(user.getImageUrl()).isEqualTo("changed_url");
+    assertThat(user.getProfileImgUrl()).isEqualTo("changed_url");
     assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    assertThat(user.getRole()).isEqualTo(UserRole.NORMAL);
     assertThat(user.getCreatedAt()).isEqualTo(123456789);
-
   }
 
   @Test
@@ -70,13 +74,14 @@ class UserTest {
         .email("test1234@test.com")
         .password("this is test pass")
         .nickname("test_nick")
-        .imageUrl("this_is_image_url")
+        .profileImgUrl("this_is_image_url")
         .status(UserStatus.INACTIVE)
-        .createdAt(123456789)
+        .role(UserRole.NORMAL)
+        .createdAt(123456789L)
         .build();
 
     UpdateUserDto updateUserDto = UpdateUserDto.builder()
-        .imageUrl("changed_url")
+        .profileImgUrl("changed_url")
         .nickname("changed_nick")
         .build();
 
@@ -88,8 +93,9 @@ class UserTest {
     assertThat(user.getEmail()).isEqualTo("test1234@test.com");
     assertThat(user.getPassword()).isEqualTo("this is test pass");
     assertThat(user.getNickname()).isEqualTo("test_nick");
-    assertThat(user.getImageUrl()).isEqualTo("this_is_image_url");
+    assertThat(user.getProfileImgUrl()).isEqualTo("this_is_image_url");
     assertThat(user.getStatus()).isEqualTo(UserStatus.INACTIVE);
+    assertThat(user.getRole()).isEqualTo(UserRole.NORMAL);
     assertThat(user.getCreatedAt()).isEqualTo(123456789);
   }
 
@@ -101,9 +107,9 @@ class UserTest {
         .email("test1234@test.com")
         .password("this is test pass")
         .nickname("test_nick")
-        .imageUrl("this_is_image_url")
+        .profileImgUrl("this_is_image_url")
         .status(UserStatus.ACTIVE)
-        .createdAt(123456789)
+        .createdAt(123456789L)
         .build();
     //when
     user = user.delete("test1234@test.com");
@@ -113,7 +119,7 @@ class UserTest {
     assertThat(user.getEmail()).isEqualTo("test1234@test.com");
     assertThat(user.getPassword()).isEqualTo("this is test pass");
     assertThat(user.getNickname()).isEqualTo("test_nick");
-    assertThat(user.getImageUrl()).isEqualTo("this_is_image_url");
+    assertThat(user.getProfileImgUrl()).isEqualTo("this_is_image_url");
     assertThat(user.getStatus()).isEqualTo(UserStatus.INACTIVE);
     assertThat(user.getCreatedAt()).isEqualTo(123456789);
   }
@@ -126,16 +132,23 @@ class UserTest {
         .email("test1234@test.com")
         .password("this is test pass")
         .nickname("test_nick")
-        .imageUrl("this_is_image_url")
+        .profileImgUrl("this_is_image_url")
         .status(UserStatus.ACTIVE)
-        .createdAt(123456789)
+        .createdAt(123456789L)
         .build();
 
     //when
     //then
     assertThatThrownBy(() -> user.delete("diff1234@test.com"))
         .isInstanceOf(UnAuthorizedUserException.class);
+    assertThat(user.getId()).isEqualTo(1L);
+    assertThat(user.getEmail()).isEqualTo("test1234@test.com");
+    assertThat(user.getPassword()).isEqualTo("this is test pass");
+    assertThat(user.getNickname()).isEqualTo("test_nick");
+    assertThat(user.getProfileImgUrl()).isEqualTo("this_is_image_url");
     assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    assertThat(user.getCreatedAt()).isEqualTo(123456789);
+
   }
 
   @Test
@@ -146,10 +159,11 @@ class UserTest {
         .email("test1234@test.com")
         .password("this is test pass")
         .nickname("test_nick")
-        .imageUrl("this_is_image_url")
+        .profileImgUrl("this_is_image_url")
         .status(UserStatus.INACTIVE)
-        .createdAt(123456789)
+        .createdAt(123456789L)
         .build();
+
     //when
     //then
     assertThatThrownBy(() -> user.delete("test1234@test.com"))

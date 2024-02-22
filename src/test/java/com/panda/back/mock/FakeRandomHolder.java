@@ -1,6 +1,6 @@
 package com.panda.back.mock;
 
-import com.panda.back.v2.common.infrastructure.RandomHolder;
+import com.panda.back.common.infrastructure.RandomHolder;
 
 
 public class FakeRandomHolder implements RandomHolder {

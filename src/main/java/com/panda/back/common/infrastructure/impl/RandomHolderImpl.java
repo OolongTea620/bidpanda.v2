@@ -1,5 +1,7 @@
-package com.panda.back.v2.common.infrastructure.impl;
+package com.panda.back.common.infrastructure.impl;
 
+
+import com.panda.back.common.infrastructure.RandomHolder;
 import java.util.Random;
 import org.springframework.stereotype.Component;
 

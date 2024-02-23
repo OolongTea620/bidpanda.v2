@@ -1,15 +1,11 @@
-package com.panda.back.verification.adapter.port.out.redis.repository;
+package com.panda.back.verification.application.port.out;
 
 import com.panda.back.verification.domain.Verification;
-import java.util.Optional;
 
-public interface VerificationRedisRepository {
-
-  Optional<Verification> findByEmail(String email);
-
+public interface VerificationPort {
   Verification save(Verification verification);
+  Verification findByEmail(String email);
 
   Verification update(Verification verification);
-
   void delete(Verification verification);
 }

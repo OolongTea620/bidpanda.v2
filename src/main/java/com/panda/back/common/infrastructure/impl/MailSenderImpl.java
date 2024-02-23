@@ -1,8 +1,7 @@
 package com.panda.back.common.infrastructure.impl;
 
+import com.panda.back.common.infrastructure.MailSender;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.MailException;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MailSenderImpl implements MailSender {
-  private JavaMailSender javaMailSender;
+  private final JavaMailSender javaMailSender;
 
   public void send(String email, String verificationCode) {
     String title = "Bid Panda 회원가입 인증 메일입니다.";
@@ -22,15 +21,5 @@ public class MailSenderImpl implements MailSender {
     message.setText(text);
 
     javaMailSender.send(message);
-  }
-
-  @Override
-  public void send(SimpleMailMessage simpleMessage) throws MailException {
-    MailSender.super.send(simpleMessage);
-  }
-
-  @Override
-  public void send(SimpleMailMessage... simpleMessages) throws MailException {
-
   }
 }

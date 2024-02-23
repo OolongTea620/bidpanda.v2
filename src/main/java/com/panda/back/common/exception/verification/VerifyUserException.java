@@ -1,4 +1,4 @@
-package com.panda.back.common.exception.user;
+package com.panda.back.common.exception.verification;
 
 public class VerifyUserException extends RuntimeException{
   public VerifyUserException() {

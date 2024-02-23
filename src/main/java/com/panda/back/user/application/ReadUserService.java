@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ReadUserService implements ReadUserUseCase {
-
   private final ReadUserPort readUserPort;
-
   @Override
   public boolean existsUser(String email) {
     Optional<User> user = readUserPort.findByEmail(email);

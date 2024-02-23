@@ -1,7 +1,6 @@
 package com.panda.back.verification.domain;
 
 import com.panda.back.common.exception.verification.VerifyUserException;
-import com.panda.back.common.infrastructure.MailSender;
 import com.panda.back.common.infrastructure.RandomHolder;
 import lombok.Builder;
 import lombok.Getter;

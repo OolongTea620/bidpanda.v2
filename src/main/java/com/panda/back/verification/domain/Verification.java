@@ -26,7 +26,7 @@ public class Verification {
         .build();
   }
 
-  public void successSendEmail() {
+  public void sendComplete() {
     status = VerificationStatus.Send;
   }
 

@@ -4,6 +4,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import com.panda.back.common.exception.user.UnAuthorizedUserException;
+import com.panda.back.common.infrastructure.HashingHolder;
+import com.panda.back.mock.FakeHashingHolder;
 import com.panda.back.user.application.port.in.dto.CreateUserDto;
 import com.panda.back.user.application.port.in.dto.UpdateUserDto;
 import org.junit.jupiter.api.Test;
@@ -169,6 +171,30 @@ class UserTest {
     assertThatThrownBy(() -> user.delete("test1234@test.com"))
         .isInstanceOf(UnAuthorizedUserException.class);
     assertThat(user.getStatus()).isEqualTo(UserStatus.INACTIVE);
+  }
+
+  @Test
+  void User는_패스워드를_해싱_할_수_있다() {
+    //given
+    HashingHolder hashingHolder = new FakeHashingHolder();
+    User user = User.builder()
+        .email("test1234@test.com")
+        .password("this is test pass")
+        .nickname("test_nick")
+        .status(UserStatus.ACTIVE)
+        .role(UserRole.NORMAL)
+        .build();
+    //when
+    user = user.bcryptPassword(hashingHolder);
+    //then
+    assertThat(user.getId()).isNull();
+    assertThat(user.getEmail()).isEqualTo("test1234@test.com");
+    assertThat(user.getPassword()).isEqualTo("1234567890");
+    assertThat(user.getNickname()).isEqualTo("test_nick");
+    assertThat(user.getProfileImgUrl()).isNull();
+    assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    assertThat(user.getRole()).isEqualTo(UserRole.NORMAL);
+    assertThat(user.getCreatedAt()).isNull();
   }
 
 }

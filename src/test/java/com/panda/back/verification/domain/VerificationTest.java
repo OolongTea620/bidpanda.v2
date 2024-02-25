@@ -25,7 +25,7 @@ class VerificationTest {
         .generate("test1234@gmail.com", new FakeRandomHolder("123456"));
 
     //then
-    verification.successSendEmail();
+    verification.sendComplete();
 
     //when
     assertThat(verification.getEmail()).isEqualTo("test1234@gmail.com");

@@ -38,6 +38,12 @@ public class VerificationRedisAdapter implements VerificationPort {
     verificationRepository.delete(key);
   }
 
+  @Override
+  public void deleteByEmailAndStatus(String email, VerificationStatus verificationStatus) {
+    String key = getKey(email, verificationStatus);
+    verificationRepository.delete(key);
+  }
+
   private String getKey(String email, VerificationStatus status) {
     return String.format("%s:%s:%s",VERIFY_PREFIX ,email, status.toString());
   }

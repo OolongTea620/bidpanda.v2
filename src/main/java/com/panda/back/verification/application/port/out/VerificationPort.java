@@ -8,4 +8,6 @@ public interface VerificationPort {
   Verification save(Verification verification);
   Optional<Verification> findByEmailAndStatus(String email, VerificationStatus status);
   void delete(Verification verification);
+
+  void deleteByEmailAndStatus(String email, VerificationStatus verificationStatus);
 }

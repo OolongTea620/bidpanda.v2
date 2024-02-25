@@ -1,6 +1,7 @@
 package com.panda.back.user.domain;
 
 import com.panda.back.common.exception.user.UnAuthorizedUserException;
+import com.panda.back.common.infrastructure.HashingHolder;
 import com.panda.back.user.application.port.in.dto.UpdateUserDto;
 import com.panda.back.user.application.port.in.dto.CreateUserDto;
 import lombok.Builder;
@@ -75,6 +76,13 @@ public class User {
         .createdAt(createdAt)
         .build();
   }
-
-
+  public User bcryptPassword(HashingHolder hashingHolder) {
+    return User.builder()
+        .email(email)
+        .password(hashingHolder.hashPassword(password))
+        .nickname(nickname)
+        .status(UserStatus.ACTIVE)
+        .role(UserRole.NORMAL)
+        .build();
+  }
 }

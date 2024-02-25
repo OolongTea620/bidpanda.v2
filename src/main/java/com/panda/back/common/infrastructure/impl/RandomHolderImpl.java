@@ -15,4 +15,9 @@ public class RandomHolderImpl implements RandomHolder {
   public String random() {
     return String.valueOf(random.nextInt(888888) + 111111);
   }
+
+  @Override
+  public int getSaltRound() {
+    return random.nextInt(4,11);
+  }
 }

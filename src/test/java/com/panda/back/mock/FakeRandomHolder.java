@@ -13,4 +13,9 @@ public class FakeRandomHolder implements RandomHolder {
     return this.randomNum;
   }
 
+  @Override
+  public int getSaltRound() {
+    return 5;
+  }
+
 }

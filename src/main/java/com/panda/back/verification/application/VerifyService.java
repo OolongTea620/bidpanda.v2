@@ -27,20 +27,22 @@ public class VerifyService implements VerifyUseCase {
     }
     Verification verification = Verification.generate(email, randomHolder);
     mailSender.send(verification.getEmail(), verification.getVerificationCode());
-    verification.successSendEmail();
+
+    verification.sendComplete();
     verificationPort.save(verification);
   }
 
   @Override
   public VerifyEmailDto verify(VerifyEmailDto verifyEmailDto) {
-    Verification verification = verificationPort.findByEmailAndStatus(verifyEmailDto.getEmail(), VerificationStatus.Send)
+    Verification verification = verificationPort
+        .findByEmailAndStatus(verifyEmailDto.getEmail(), VerificationStatus.Send)
         .orElseThrow(VerificationNotFoundException::new);
     
     verification.verify(verification.getVerificationCode());
-    verification.successSendEmail();
 
-    // TODO : Send 삭제 레디스 작업 생각해보기
+    verificationPort.deleteByEmailAndStatus(verification.getEmail(), VerificationStatus.Send);
     verificationPort.save(verification);
+
     return VerifyEmailDto.builder()
         .email(verifyEmailDto.getEmail())
         .verificationCode(verifyEmailDto.getVerificationCode())

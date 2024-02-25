@@ -13,7 +13,7 @@ public class MailSenderImpl implements MailSender {
 
   public void send(String email, String verificationCode) {
     String title = "Bid Panda 회원가입 인증 메일입니다.";
-    String text = "인증번호는 " + verificationCode + "입니다. <br/>";
+    String text = "인증번호는 " + verificationCode + "입니다.";
 
     SimpleMailMessage message = new SimpleMailMessage();
     message.setTo(email);

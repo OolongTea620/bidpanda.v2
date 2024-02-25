@@ -27,7 +27,7 @@ public class VerifyService implements VerifyUseCase {
     }
     Verification verification = Verification.generate(email, randomHolder);
     mailSender.send(verification.getEmail(), verification.getVerificationCode());
-    verification.afterSendEmail();
+    verification.successSendEmail();
     verificationPort.save(verification);
   }
 
@@ -37,7 +37,9 @@ public class VerifyService implements VerifyUseCase {
         .orElseThrow(VerificationNotFoundException::new);
     
     verification.verify(verification.getVerificationCode());
-    // TODO : Send 삭제 레디스 생각해보기
+    verification.successSendEmail();
+
+    // TODO : Send 삭제 레디스 작업 생각해보기
     verificationPort.save(verification);
     return VerifyEmailDto.builder()
         .email(verifyEmailDto.getEmail())

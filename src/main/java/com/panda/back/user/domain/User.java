@@ -1,11 +1,14 @@
 package com.panda.back.user.domain;
 
+import com.panda.back.common.exception.user.InvalidUserException;
 import com.panda.back.common.exception.user.UnAuthorizedUserException;
 import com.panda.back.common.infrastructure.HashingHolder;
+import com.panda.back.user.application.port.in.dto.UpdatePasswordDto;
 import com.panda.back.user.application.port.in.dto.UpdateUserDto;
 import com.panda.back.user.application.port.in.dto.CreateUserDto;
 import lombok.Builder;
 import lombok.Getter;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Getter
 public class User {
@@ -44,7 +47,7 @@ public class User {
 
   public User modify(UpdateUserDto updateUserDto) {
     if (status.equals(UserStatus.INACTIVE)) {
-      throw new UnAuthorizedUserException();
+      throw new InvalidUserException();
     }
     return User.builder()
         .id(id)
@@ -83,6 +86,26 @@ public class User {
         .nickname(nickname)
         .status(UserStatus.ACTIVE)
         .role(UserRole.NORMAL)
+        .createdAt(createdAt)
+        .build();
+  }
+
+  public User updatePassword(UpdatePasswordDto updatePasswordDto,HashingHolder hashingHolder) {
+    if(status.equals(UserStatus.INACTIVE)) {
+      throw new InvalidUserException();
+    }
+    if (BCrypt.checkpw(updatePasswordDto.getOriginPassword(),password)) {
+      throw new UnAuthorizedUserException();
+    }
+    return User.builder()
+        .id(id)
+        .email(email)
+        .password(hashingHolder.hashPassword(updatePasswordDto.getChangedPassword()))
+        .nickname(nickname)
+        .profileImgUrl(profileImgUrl)
+        .status(UserStatus.INACTIVE)
+        .role(role)
+        .createdAt(createdAt)
         .build();
   }
 }
